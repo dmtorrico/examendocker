@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  bd_mysql:
+    image: mysql:latest
+    environment:
+       - MYSQL_ROOT_PASSWORD=mysqlpwd
+       - MYSQL_DATABASE=my_db1
+    volumes:
+       - ./volumenes/mysql:/var/lib/mysql
+       - ./volumenes/mysql-init-files:/docker-entrypoint-initdb.d
+    ports:
+       - 3306:3306
+    expose:
+       - 3306
+    networks:
+       - default
+
+  app_php:
+    build: .
+    image: webdevops/php-nginx:debian-9
+    volumes:
+      #montamos nuestra web desde el volumen externo
+      - ./miweb/:/app
+    ports:
+      - 8000:80
+    depends_on:
+      - bd_mysql
+    networks:
+      - default
+
