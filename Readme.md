@@ -3,25 +3,18 @@ En esta oportunidad comparto mi primera experiencia con docker compose, mostramo
     NGINX 
     MYSQL 8
 
+Modificaciones
+--
+  - Se agrego el archivo .env con las variables de entorno, estas son accesibles para ambos contendrores
+  - Se agrego my.cnf que se monta en /etc/mysql/ para evitar el problema de : 'The server requested authentication method unknown to the client [caching_sha2_password] in' o 'The server requested authentication method unknown to the client'
+
 Ejecución
 
 1.- Para hacer correr la aplicación se debe realizar:
 
     docker-compose up -d
 
-2.- En esta ocación se prepararon script para la creación de la Base de Datos, por lo que posteriormente ejecutar las siguientes instrucciones:
 
-    docker container exec -it dockercompose_bd_mysql_1 bash
-
-3.- A continuación creamos la base de datos y cargamos algunos datos;
-
-    Ejecutar en consola lo siguiente:
-
-    mysql -p /docker-entrypoint-initdb.d/init.sql
-    mysql -p my_db1 < /docker-entrypoint-initdb.d/init1.sql
-
-4.- El LEMP ya esta listo por lo que accedemos a través de:
+2.- El LEMP ya esta listo por lo que accedemos a través de:
     
     http://localhost:8000/
-
-Gracias por tomarse el tiempo de verlo.
